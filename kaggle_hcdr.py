@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 import os
+pd.set_option('max_columns', None)
 
 # Import files
 
@@ -20,3 +21,14 @@ file_dict = {
 }
 
 file_dfs = {idx: pd.read_csv(f) for idx, f in file_dict.items()}
+
+# Write function to standardize EDA
+
+def eda(df_name):
+    print(df_name.head)
+    print(df_name.describe())
+
+# Explore app_train df
+
+app_train = file_dfs['app_train']
+eda(app_train)
