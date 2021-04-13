@@ -32,3 +32,18 @@ def eda(df_name):
 
 app_train = file_dfs['app_train']
 eda(app_train)
+
+# Explore bureau_bal df
+
+bureau_bal = file_dfs['bureau_bal']
+eda(bureau_bal)
+
+# Explore bureau_hist df
+
+bureau_hist = file_dfs['bureau_hist']
+eda(bureau_hist)
+
+# Explore cc_bal df
+
+cc_bal = file_dfs['cc_bal']
+eda(cc_bal)
