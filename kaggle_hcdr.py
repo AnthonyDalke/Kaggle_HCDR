@@ -47,3 +47,18 @@ eda(bureau_hist)
 
 cc_bal = file_dfs['cc_bal']
 eda(cc_bal)
+
+# Explore cc_payments df
+
+cc_payments = file_dfs['cc_payments']
+eda(cc_payments)
+
+# Explore pos_hist df
+
+pos_hist = file_dfs['pos_hist']
+eda(pos_hist)
+
+# Explore app_hist df
+
+app_hist = file_dfs['app_hist']
+eda(app_hist)
