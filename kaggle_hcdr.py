@@ -28,10 +28,37 @@ def eda(df_name):
     print(df_name.head)
     print(df_name.describe())
 
+# Confirm 
+
 # Explore app_train df
 
 app_train = file_dfs['app_train']
 eda(app_train)
+
+# Confirm app_test has same columns as app_train
+
+app_test = file_dfs['app_test']
+
+train_col = sorted(app_train.columns.tolist())
+len(train_col)
+test_col = sorted(app_test.columns.tolist())
+len(test_col)
+set(train_col) - set(test_col)
+train_col.remove('TARGET')
+len(train_col)
+
+match_col = 0 
+mismatch_col = []
+for i in range(0, len(test_col)):
+    if test_col[i] == train_col[i]:
+        match_col += 1
+    else:
+        mismatch_col.append(test_col[i])
+if match_col == len(test_col):
+    print('Columns match!')
+else:
+    print('These columns do not match:')
+    print(mismatch_col)
 
 # Explore bureau_bal df
 
