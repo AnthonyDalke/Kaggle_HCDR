@@ -28,8 +28,6 @@ def eda(df_name):
     print(df_name.head)
     print(df_name.describe())
 
-# Confirm 
-
 # Explore app_train df
 
 app_train = file_dfs['app_train']
@@ -59,6 +57,37 @@ if match_col == len(test_col):
 else:
     print('These columns do not match:')
     print(mismatch_col)
+
+# Verify SK_ID_CURR in app_test exist in bureau_hist and app_hist
+
+print('Total count of unique SK_ID_CURR in test set: ' 
+    + str(len(app_test['SK_ID_CURR'].unique()))
+    )
+print('SK_ID_CURR in test set and bureau_hist: ' 
+    + str(len(app_test['SK_ID_CURR'][(app_test['SK_ID_CURR'].isin(bureau_hist['SK_ID_CURR']))].unique()))
+    )
+print('SK_ID_CURR in test set but not bureau_hist: ' 
+    + str(len(app_test['SK_ID_CURR'][~(app_test['SK_ID_CURR'].isin(bureau_hist['SK_ID_CURR']))].unique()))
+    )
+print(
+    'Ratio of SK_ID_CURR in test set but not bureau_hist: ' 
+    + str("{:.2f}".format(len(app_test['SK_ID_CURR'][~(app_test['SK_ID_CURR'].isin(bureau_hist['SK_ID_CURR']))].unique())
+     / len(app_test['SK_ID_CURR'].unique()))
+     )
+    )
+
+print('SK_ID_CURR in test set and app_hist: ' 
+    + str(len(app_test['SK_ID_CURR'][(app_test['SK_ID_CURR'].isin(app_hist['SK_ID_CURR']))].unique()))
+    )
+print('SK_ID_CURR in test set but not app_hist: ' 
+    + str(len(app_test['SK_ID_CURR'][~(app_test['SK_ID_CURR'].isin(app_hist['SK_ID_CURR']))].unique()))
+    )
+print(
+    'Ratio of SK_ID_CURR in test set but not app_hist: ' 
+    + str("{:.2f}".format(len(app_test['SK_ID_CURR'][~(app_test['SK_ID_CURR'].isin(app_hist['SK_ID_CURR']))].unique())
+     / len(app_test['SK_ID_CURR'].unique()))
+     )
+    )
 
 # Explore bureau_bal df
 
