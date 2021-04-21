@@ -1,8 +1,10 @@
-# Import necessary libraries
+# Import necessary libraries and set global options
 
 import pandas as pd
 import numpy as np
 import os
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, auc, balanced_accuracy_score, classification_report, confusion_matrix, roc_curve
 pd.set_option('max_columns', None)
 
 # Import files
@@ -88,6 +90,16 @@ print(
      / len(app_test['SK_ID_CURR'].unique()))
      )
     )
+
+# Create list of columns with null values
+
+train_null = app_train.columns[app_train.isna().any()].tolist()
+print('Total count of columns in app_train: ' 
+    + str(len(app_train.columns)))
+print('Count of app_train columns with null values: ' 
+    + str(len(train_null)))
+
+# Fit XGBoost model on app_train with nulls
 
 # Explore bureau_bal df
 
