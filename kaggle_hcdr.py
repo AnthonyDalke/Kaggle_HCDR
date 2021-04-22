@@ -102,6 +102,27 @@ print('Count of app_train columns with null values: '
 
 # Fit XGBoost model on app_train with nulls
 
+target = app_train['TARGET']
+app_train.drop(
+    columns=['TARGET']
+    , inplace = True
+    )
+
+x_base, y_base = app_train, target
+xtrain_base, ytrain_base, xtest_base, ytest_base = train_test_split(
+    x_base
+    , y_base
+    , test_size=0.2
+    , random_state=32
+)
+
+xgb_base = XGBClassifier(
+    booster='gbtree'
+    , objective='binary:logistic'
+    , random_state=32
+)
+model_base = xgb_base.fit(xtrain_base, ytrain_base)
+
 # Explore bureau_bal df
 
 bureau_bal = file_dfs['bureau_bal']
