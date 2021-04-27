@@ -100,6 +100,14 @@ print('Total count of columns in app_train: '
 print('Count of app_train columns with null values: ' 
     + str(len(train_null)))
 
+# Create list of columns to impute, rather than fill with 0
+
+train_impute = [
+    'EXT_SOURCE_1'
+    , 'EXT_SOURCE_2'
+    , 'EXT_SOURCE_3'
+]
+
 # Fit XGBoost model on app_train with nulls
 
 target = app_train['TARGET']
