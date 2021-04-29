@@ -6,6 +6,7 @@ import os
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, auc, balanced_accuracy_score, classification_report, confusion_matrix, roc_curve
+from sklearn.impute import SimpleImputer
 pd.set_option('max_columns', None)
 
 # Import files
@@ -95,18 +96,32 @@ print(
 # Create list of columns with null values
 
 train_null = app_train.columns[app_train.isna().any()].tolist()
+
 print('Total count of columns in app_train: ' 
     + str(len(app_train.columns)))
 print('Count of app_train columns with null values: ' 
     + str(len(train_null)))
 
-# Create list of columns to impute, rather than fill with 0
+# Distinguish columns to impute with medians from those to fill with 0
 
 train_impute = [
     'EXT_SOURCE_1'
     , 'EXT_SOURCE_2'
     , 'EXT_SOURCE_3'
 ]
+app_train[train_impute].describe()
+train_zero = [x for x in train_null if x not in train_impute]
+
+# Fill in null values
+
+app_train[train_zero] = app_train[train_zero].fillna(0)
+imp_base = SimpleImputer(
+    missing_values=np.nan
+    , strategy='median'
+    )
+imp_base.fit(app_train[train_impute])
+test = imp_base.transform(app_train[train_impute])
+app_train[train_impute] = imp_base.transform(app_train[train_impute])
 
 # Fit XGBoost model on app_train with nulls
 
